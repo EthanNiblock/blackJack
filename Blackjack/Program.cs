@@ -28,9 +28,24 @@ namespace BlackjackTest
                 var randNum = new Random();
                 while(gameOver != 0)
                 {
+                    int totalNumDeal = 0;
+                    int totalNumPlay = 0;
+                    int hit = 1;
                     while(totalNumDeal < 21 || totalNumPlay < 21 || hit != 0)
                     {
+                        switch(randNum.Next(12))
+                        {
+                            case 0:
 
+                            break;
+                            case 1:
+
+                            break;
+                            case 2:
+
+                            break;
+                            case 3:
+                        }
                     }
                 }
             }
