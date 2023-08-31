@@ -50,7 +50,7 @@ namespace BlackjackTest
                         //Dealer first then player
                         switch (randomNum)
                         {
-                            case 0: //ace
+                            case 0: //Ace
                                 if (hit == 1)
                                 {
                                     totalNumDeal1 += 1;
@@ -87,7 +87,7 @@ namespace BlackjackTest
                                     }
                                 }
                                 break;
-                            case 1:
+                            case 1: //Two
                                 if (hit == 1)
                                 {
                                     totalNumDeal1 += 2;
@@ -119,7 +119,7 @@ namespace BlackjackTest
                                     }
                                 }
                                 break;
-                            case 2:
+                            case 2: //Three
                                 if (hit == 1)
                                 {
                                     totalNumDeal1 += 3;
@@ -151,7 +151,7 @@ namespace BlackjackTest
                                     }
                                 }
                                 break;
-                            case 3:
+                            case 3: //Four
                                 if (hit == 1)
                                 {
                                     totalNumDeal1 += 4;
@@ -183,7 +183,7 @@ namespace BlackjackTest
                                     }
                                 }
                                 break;
-                            case 4:
+                            case 4://Five
                                 if (hit == 1)
                                 {
                                     totalNumDeal1 += 5;
@@ -215,7 +215,7 @@ namespace BlackjackTest
                                     }
                                 }
                                 break;
-                            case 5:
+                            case 5://Six
                                 if (hit == 1)
                                 {
                                     totalNumDeal1 += 6;
@@ -247,7 +247,7 @@ namespace BlackjackTest
                                     }
                                 }
                                 break;
-                            case 6:
+                            case 6://Seven
                                 if (hit == 1)
                                 {
                                     totalNumDeal1 += 7;
@@ -279,7 +279,7 @@ namespace BlackjackTest
                                     }
                                 }
                                 break;
-                            case 7:
+                            case 7://Eight
                                 if (hit == 1)
                                 {
                                     totalNumDeal1 += 8;
@@ -311,7 +311,7 @@ namespace BlackjackTest
                                     }
                                 }
                                 break;
-                            case 8:
+                            case 8://Nine
                                 if (hit == 1)
                                 {
                                     totalNumDeal1 += 9;
@@ -343,7 +343,7 @@ namespace BlackjackTest
                                     }
                                 }
                                 break;
-                            case 9:
+                            case 9://Ten and Face Cards
                             case 10:
                             case 11:
                             case 12:
@@ -464,19 +464,19 @@ namespace BlackjackTest
                                 }
                                 break;
                         }
-                        if (card >= 3)
+                        if (card >= 3)//If there are 2 or more cards (cards starts at 1)
                         {
-                            if (hit == 1)
+                            if (hit == 1) //dealer
                             {
-                                if (aceCount != 0)
+                                if (aceCount != 0)//If the dealer got an ace
                                 {
-                                    if (totalNumDeal2 > 21)
+                                    if (totalNumDeal2 > 21) //Checks to see if the max value is over 21
                                     {
-                                        if (totalNumDeal1 <= 16)
+                                        if (totalNumDeal1 <= 16)//If the minimum number is less than or equal to 16 the dealer gets another card
                                         {
                                         }
-                                        else
-                                        {
+                                        else //If over 16, the acecount and card resets, the hit variable is changed to 2 so the program switches to adding card values to the player variable
+                                        { // it sets the dealer to done and gives the dealer variable a basic sentence of their face down card and their point value
                                             aceCount = 0;
                                             hit = 2;
                                             dealer = "The dealers face down card is " + faceDown + " for a total of " + totalNumDeal1 + " points.";
@@ -486,11 +486,11 @@ namespace BlackjackTest
                                     }
                                     else
                                     {
-                                        if (totalNumDeal1 <= 16 && totalNumDeal2 <= 16)
+                                        if (totalNumDeal1 <= 16 && totalNumDeal2 <= 16)//If the minimum number is less than or equal to 16 and the max number less than or equal to 16
                                         {
                                         }
-                                        else
-                                        {
+                                        else //If over 16, the acecount and card resets, the hit variable is changed to 2 so the program switches to adding card values to the player variable
+                                        { // it sets the dealer to done and gives the dealer variable a basic sentence of their face down card and their point value
                                             aceCount = 0;
                                             dealer = "The dealers face down card is " + faceDown + " for a total of " + totalNumDeal2 + " points.";
                                             hit = 2;
@@ -502,11 +502,11 @@ namespace BlackjackTest
                                 else
                                 {
 
-                                    if (totalNumDeal1 <= 16 || totalNumDeal2 <= 16)
+                                    if (totalNumDeal1 <= 16 || totalNumDeal2 <= 16)//If the minimum number is less than or equal to 16 and the max number less than or equal to 16
                                     {
                                     }
-                                    else
-                                    {
+                                    else //If over 16, the acecount and card resets, the hit variable is changed to 2 so the program switches to adding card values to the player variable
+                                    { // it sets the dealer to done and gives the dealer variable a basic sentence of their face down card and their point value
                                         dealer = "The dealers face down card is " + faceDown + " for a total of " + totalNumDeal2 + " points.";
                                         hit = 2;
                                         aceCount = 0;
@@ -517,7 +517,7 @@ namespace BlackjackTest
                             }
                             else
                             {
-                                if (totalNumPlay1 > 21)
+                                if (totalNumPlay1 > 21) //Checks to see if the max value is over 21 and ends the game if it is
                                 {
                                     player = "Your card total is " + totalNumPlay1 + " points.";
                                     gameOver = 0;
@@ -525,98 +525,98 @@ namespace BlackjackTest
                                 }
                                 else
                                 {
-                                    if (aceCount != 0)
+                                    if (aceCount != 0) //If the player got an ace, it informs them of their points and asks them if they want to hit or stand
                                     {
                                         Console.WriteLine("Your current point total is " + totalNumPlay1 + " or " + totalNumPlay2 + ", type 1 to hit or type 2 to stand!");
                                         hit = int.Parse(Console.ReadLine());
-                                        while (hit != 1 && hit != 2)
+                                        while (hit != 1 && hit != 2)//while the number entered isn't 1 or 2 then the user will have to keep entering a number until it is 1 or 2
                                         {
                                             Console.WriteLine("Incorrect number submitted! Your current point total is " + totalNumPlay1 + " or " + totalNumPlay2 + ", type 1 to hit or type 2 to stand!");
                                             hit = int.Parse(Console.ReadLine());
                                         }
-                                        if (hit == 1)
+                                        if (hit == 1)//if hit is entered, then another card is drew
                                         {
                                             hit = 2;
                                         }
-                                        else
+                                        else//if stand is entered
                                         {
-                                            playDone = 1;
+                                            playDone = 1;//player done
                                             hit = 0;
-                                            if (totalNumPlay2 >= 22)
+                                            if (totalNumPlay2 >= 22)//if the max number is over 21 
                                             {
                                                 player = "Your card total is " + totalNumPlay1 + " points.";
-                                                if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)
+                                                if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)// if the minimum dealer number is more than or equal to the max
                                                 {
-                                                    if (totalNumPlay1 > totalNumDeal1)
+                                                    if (totalNumPlay1 > totalNumDeal1)//if the player number1 is greater than the dealer number
                                                     {
-                                                        win = "win!";
+                                                        win = "win!"; //player wins and gameover is set to 0
                                                         gameOver = 0;
                                                     }
-                                                    else if (totalNumPlay1 < totalNumDeal1)
+                                                    else if (totalNumPlay1 < totalNumDeal1)//if the player number1 is less than the dealer number
                                                     {
-                                                        win = "lose!";
+                                                        win = "lose!";//player loses and gameover is set to 0
                                                         gameOver = 0;
                                                     }
                                                     else
                                                     {
-                                                        win = "draw!";
+                                                        win = "draw!";//player draws
                                                         gameOver = 0;
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    if (totalNumPlay1 > totalNumDeal2)
+                                                    if (totalNumPlay1 > totalNumDeal2)// if player number1 is greater than dealer max number
                                                     {
-                                                        win = "win!";
+                                                        win = "win!";//player wins and gameover is set to 0
                                                         gameOver = 0;
                                                     }
-                                                    else if (totalNumPlay1 < totalNumDeal2)
+                                                    else if (totalNumPlay1 < totalNumDeal2)//if the player number1 is less than the dealer number
                                                     {
-                                                        win = "lose!";
+                                                        win = "lose!";//player loses and gameover is set to 0
                                                         gameOver = 0;
                                                     }
                                                     else
                                                     {
-                                                        win = "draw!";
+                                                        win = "draw!";//player draws
                                                         gameOver = 0;
                                                     }
                                                 }
                                             }
                                             else
                                             {
-                                                if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)
+                                                if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)// if the minimum dealer number is more than or equal to the max
                                                 {
-                                                    if (totalNumPlay2 > totalNumDeal1)
+                                                    if (totalNumPlay2 > totalNumDeal1)//if the player number2 is greater than the dealer number
                                                     {
-                                                        win = "win!";
+                                                        win = "win!";//player wins and gameover is set to 0
                                                         gameOver = 0;
                                                     }
-                                                    else if (totalNumPlay2 < totalNumDeal1)
+                                                    else if (totalNumPlay2 < totalNumDeal1)//if the player number2 is less than the dealer number
                                                     {
-                                                        win = "lose!";
+                                                        win = "lose!";//player loses and gameover is set to 0
                                                         gameOver = 0;
                                                     }
                                                     else
                                                     {
-                                                        win = "draw!";
+                                                        win = "draw!";//player draws
                                                         gameOver = 0;
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    if (totalNumPlay2 > totalNumDeal2)
+                                                    if (totalNumPlay2 > totalNumDeal2)//if the player number2 is greater than the max dealer number
                                                     {
-                                                        win = "win!";
+                                                        win = "win!";//player wins and gameover is set to 0
                                                         gameOver = 0;
                                                     }
-                                                    else if (totalNumPlay2 < totalNumDeal2)
+                                                    else if (totalNumPlay2 < totalNumDeal2)//if the player number2 is less than the max dealer number
                                                     {
-                                                        win = "lose!";
+                                                        win = "lose!";//player loses and gameover is set to 0
                                                         gameOver = 0;
                                                     }
                                                     else
                                                     {
-                                                        win = "draw!";
+                                                        win = "draw!";//player draws
                                                         gameOver = 0;
                                                     }
                                                 }
@@ -624,56 +624,56 @@ namespace BlackjackTest
                                         }
                                     }
                                     else
-                                    {
+                                    {//if the player doesnt get an ace it tells them their point total and asks if they want to hit or stand
                                         Console.WriteLine("Your current point total is " + totalNumPlay1 + ", type 1 to hit or type 2 to stand!");
                                         hit = int.Parse(Console.ReadLine());
-                                        while (hit != 1 && hit != 2)
+                                        while (hit != 1 && hit != 2) //while hit isnt 1 or 2, it keeps asking them to re enter it
                                         {
                                             Console.WriteLine("Incorrect number submitted! Your current point total is " + totalNumPlay2 + ", type 1 to hit or type 2 to stand!");
                                             hit = int.Parse(Console.ReadLine());
                                         }
-                                        if (hit == 1)
+                                        if (hit == 1)//if they choose to hit then another card is selected
                                         {
                                             hit = 2;
                                         }
                                         else
-                                        {
-                                            playDone = 1;
+                                        {//if the player stand
+                                            playDone = 1;//the player is set to finished
                                             hit = 0;
                                             player = "Your card total is " + totalNumPlay1 + " points.";
-                                            if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)
+                                            if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)// if the minimum dealer number is more than or equal to the max
                                             {
-                                                if (totalNumPlay1 > totalNumDeal1)
+                                                if (totalNumPlay1 > totalNumDeal1)//if the player number1 is greater than the dealer number
                                                 {
-                                                    win = "win!";
+                                                    win = "win!";//player wins and gameover is set to 0
                                                     gameOver = 0;
                                                 }
-                                                else if (totalNumPlay1 < totalNumDeal1)
+                                                else if (totalNumPlay1 < totalNumDeal1)//if the player number1 is less than the dealer number
                                                 {
-                                                    win = "lose!";
+                                                    win = "lose!";//player loses and gameover is set to 0
                                                     gameOver = 0;
                                                 }
                                                 else
                                                 {
-                                                    win = "draw!";
+                                                    win = "draw!";//player draws
                                                     gameOver = 0;
                                                 }
                                             }
                                             else
                                             {
-                                                if (totalNumPlay1 > totalNumDeal2)
+                                                if (totalNumPlay1 > totalNumDeal2)//if the player number1 is greater than the max dealer number
                                                 {
-                                                    win = "win!";
+                                                    win = "win!";//player wins and gameover is set to 0
                                                     gameOver = 0;
                                                 }
-                                                else if (totalNumPlay1 < totalNumDeal2)
+                                                else if (totalNumPlay1 < totalNumDeal2)//if the player number1 is less than the dealer number
                                                 {
-                                                    win = "lose!";
+                                                    win = "lose!";//player loses and gameover is set to 0
                                                     gameOver = 0;
                                                 }
                                                 else
                                                 {
-                                                    win = "draw!";
+                                                    win = "draw!";//player draws
                                                     gameOver = 0;
                                                 }
                                             }
@@ -688,18 +688,18 @@ namespace BlackjackTest
 
                     }
 
-                    if (totalNumPlay1 > 21)
+                    if (totalNumPlay1 > 21)//If the players card count goes over 21 then they lose and go bust
                     {
 
                         win = "have went bust! You lose!";
                     }
-                    else if (totalNumDeal1 > 21)
+                    else if (totalNumDeal1 > 21)//if the dealer goes over 21 then they lose and go bust
                     {
                         win = "win! The dealer went bust!";
                     }
-                    Console.WriteLine(dealer);
-                    Console.WriteLine(player);
-                    Console.WriteLine("You " + win);
+                    Console.WriteLine(dealer);//prints message for the dealers total card count
+                    Console.WriteLine(player);//prints message for the players total card count
+                    Console.WriteLine("You " + win);//prints result of the game
 
                 }
             }
