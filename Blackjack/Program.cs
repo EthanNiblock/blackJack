@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
+using System.ComponentModel;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 
@@ -40,6 +41,8 @@ namespace BlackjackTest
                     int dealDone = 0;
                     int playDone = 0;
                     string dealer = "";
+                    string player = "";
+                    string win = "";
                     while (dealDone != 1 || playDone != 1)
                     {
 
@@ -51,10 +54,9 @@ namespace BlackjackTest
                                 if (hit == 1)
                                 {
                                     totalNumDeal1 += 1;
-                                    if (totalNumDeal2 < 10)
-                                    {
-                                        totalNumDeal2 += 11;
-                                    }
+
+                                    totalNumDeal2 += 11;
+                                    
                                     aceCount++;
                                     if (card == 1)
                                     {
@@ -70,10 +72,8 @@ namespace BlackjackTest
                                 else
                                 {
                                     totalNumPlay1 += 1;
-                                    if (totalNumPlay2 < 10)
-                                    {
-                                        totalNumPlay2 += 11;
-                                    }
+                                    totalNumPlay2 += 11;
+                                    
                                     aceCount++;
                                     if (card == 1)
                                     {
@@ -86,22 +86,6 @@ namespace BlackjackTest
                                         Console.WriteLine("Your next card is an Ace.");
                                     }
                                 }
-
-                                //int hold;
-                                //do
-                                //{
-                                //    Console.WriteLine("Your first card is an Ace, do you want it to be worth 1 or 11?");
-                                //    hold = int.Parse(Console.ReadLine());
-                                //    if (hold != 1 || hold != 11)
-                                //    {
-                                //        Console.WriteLine("Please enter only 1 or 11.\n");
-                                //    }
-                                //    else if (hold == 1)
-                                //    {
-                                //    }
-                                //}
-                                // while (hold != 1 || hold != 11);
-
                                 break;
                             case 1:
                                 if (hit == 1)
@@ -367,7 +351,7 @@ namespace BlackjackTest
                                 {
 
                                     totalNumDeal1 += 10;
-                                    totalNumDeal2 += 10; ;
+                                    totalNumDeal2 += 10;
                                     if (randomNum == 9)
                                     {
                                         if (card == 1)
@@ -423,6 +407,8 @@ namespace BlackjackTest
                                 }
                                 else
                                 {
+                                    totalNumPlay1 += 10;
+                                    totalNumPlay2 += 10;
                                     if (randomNum == 9)
                                     {
                                         if (card == 1)
@@ -493,8 +479,9 @@ namespace BlackjackTest
                                         {
                                             aceCount = 0;
                                             hit = 2;
-                                            dealer = "The dealers face down card is" + faceDown + " for a total of " + totalNumDeal1 + " points.";
-                                            card = 0;
+                                            dealer = "The dealers face down card is " + faceDown + " for a total of " + totalNumDeal1 + " points.";
+                                            card = 1;
+                                            dealDone = 1;
                                         }
                                     }
                                     else
@@ -505,9 +492,10 @@ namespace BlackjackTest
                                         else
                                         {
                                             aceCount = 0;
-                                            dealer = "The dealers face down card is" + faceDown + " for a total of " + totalNumDeal2 + " points.";
+                                            dealer = "The dealers face down card is " + faceDown + " for a total of " + totalNumDeal2 + " points.";
                                             hit = 2;
-                                            card = 0;
+                                            card = 1;
+                                            dealDone = 1;
                                         }
                                     }
                                 }
@@ -519,39 +507,200 @@ namespace BlackjackTest
                                     }
                                     else
                                     {
-                                        dealer = "The dealers face down card is" + faceDown + " for a total of " + totalNumDeal2 + " points.";
+                                        dealer = "The dealers face down card is " + faceDown + " for a total of " + totalNumDeal2 + " points.";
                                         hit = 2;
                                         aceCount = 0;
-                                        card = 0;
+                                        card = 1;
+                                        dealDone = 1;
                                     }
                                 }
                             }
                             else
                             {
-                                if(aceCount != 0)
+                                if (totalNumPlay1 > 21)
                                 {
-                                    Console.WriteLine("Your current point total is " + totalNumPlay1 + "or " + totalNumPlay2 + ", type 1 to hit or type 2 to stand!");
-                                    hit = int.Parse(Console.ReadLine());
-                                    while (hit != 1 || hit !=2)
+                                    player = "Your card total is " + totalNumPlay1 + " points.";
+                                    gameOver = 0;
+                                    break;
+                                }
+                                else
+                                {
+                                    if (aceCount != 0)
                                     {
-                                        Console.WriteLine(@"Incorrect number submitted! Your current point total is {0] or {1}, type 1 to hit or type 2 to stand!", totalNumPlay1, totalNumPlay2);
+                                        Console.WriteLine("Your current point total is " + totalNumPlay1 + " or " + totalNumPlay2 + ", type 1 to hit or type 2 to stand!");
                                         hit = int.Parse(Console.ReadLine());
-                                    }
-                                    if (hit == 1)
-                                    {
-                                        hit = 2;
+                                        while (hit != 1 && hit != 2)
+                                        {
+                                            Console.WriteLine("Incorrect number submitted! Your current point total is " + totalNumPlay1 + " or " + totalNumPlay2 + ", type 1 to hit or type 2 to stand!");
+                                            hit = int.Parse(Console.ReadLine());
+                                        }
+                                        if (hit == 1)
+                                        {
+                                            hit = 2;
+                                        }
+                                        else
+                                        {
+                                            playDone = 1;
+                                            hit = 0;
+                                            if (totalNumPlay2 >= 22)
+                                            {
+                                                player = "Your card total is " + totalNumPlay1 + " points.";
+                                                if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)
+                                                {
+                                                    if (totalNumPlay1 > totalNumDeal1)
+                                                    {
+                                                        win = "win!";
+                                                        gameOver = 0;
+                                                    }
+                                                    else if (totalNumPlay1 < totalNumDeal1)
+                                                    {
+                                                        win = "lose!";
+                                                        gameOver = 0;
+                                                    }
+                                                    else
+                                                    {
+                                                        win = "draw!";
+                                                        gameOver = 0;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (totalNumPlay1 > totalNumDeal2)
+                                                    {
+                                                        win = "win!";
+                                                        gameOver = 0;
+                                                    }
+                                                    else if (totalNumPlay1 < totalNumDeal2)
+                                                    {
+                                                        win = "lose!";
+                                                        gameOver = 0;
+                                                    }
+                                                    else
+                                                    {
+                                                        win = "draw!";
+                                                        gameOver = 0;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)
+                                                {
+                                                    if (totalNumPlay2 > totalNumDeal1)
+                                                    {
+                                                        win = "win!";
+                                                        gameOver = 0;
+                                                    }
+                                                    else if (totalNumPlay2 < totalNumDeal1)
+                                                    {
+                                                        win = "lose!";
+                                                        gameOver = 0;
+                                                    }
+                                                    else
+                                                    {
+                                                        win = "draw!";
+                                                        gameOver = 0;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (totalNumPlay2 > totalNumDeal2)
+                                                    {
+                                                        win = "win!";
+                                                        gameOver = 0;
+                                                    }
+                                                    else if (totalNumPlay2 < totalNumDeal2)
+                                                    {
+                                                        win = "lose!";
+                                                        gameOver = 0;
+                                                    }
+                                                    else
+                                                    {
+                                                        win = "draw!";
+                                                        gameOver = 0;
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                     else
                                     {
-                                        hit = 0;
+                                        Console.WriteLine("Your current point total is " + totalNumPlay1 + ", type 1 to hit or type 2 to stand!");
+                                        hit = int.Parse(Console.ReadLine());
+                                        while (hit != 1 && hit != 2)
+                                        {
+                                            Console.WriteLine("Incorrect number submitted! Your current point total is " + totalNumPlay2 + ", type 1 to hit or type 2 to stand!");
+                                            hit = int.Parse(Console.ReadLine());
+                                        }
+                                        if (hit == 1)
+                                        {
+                                            hit = 2;
+                                        }
+                                        else
+                                        {
+                                            playDone = 1;
+                                            hit = 0;
+                                            player = "Your card total is " + totalNumPlay1 + " points.";
+                                            if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)
+                                            {
+                                                if (totalNumPlay1 > totalNumDeal1)
+                                                {
+                                                    win = "win!";
+                                                    gameOver = 0;
+                                                }
+                                                else if (totalNumPlay1 < totalNumDeal1)
+                                                {
+                                                    win = "lose!";
+                                                    gameOver = 0;
+                                                }
+                                                else
+                                                {
+                                                    win = "draw!";
+                                                    gameOver = 0;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (totalNumPlay1 > totalNumDeal2)
+                                                {
+                                                    win = "win!";
+                                                    gameOver = 0;
+                                                }
+                                                else if (totalNumPlay1 < totalNumDeal2)
+                                                {
+                                                    win = "lose!";
+                                                    gameOver = 0;
+                                                }
+                                                else
+                                                {
+                                                    win = "draw!";
+                                                    gameOver = 0;
+                                                }
+                                            }
 
+
+                                        }
                                     }
-
                                 }
                             }
-
+                            
                         }
+
                     }
+
+                    if (totalNumPlay1 > 21)
+                    {
+
+                        win = "have went bust! You lose!";
+                    }
+                    else if (totalNumDeal1 > 21)
+                    {
+                        win = "win! The dealer went bust!";
+                    }
+                    Console.WriteLine(dealer);
+                    Console.WriteLine(player);
+                    Console.WriteLine("You " + win);
+
                 }
             }
 
