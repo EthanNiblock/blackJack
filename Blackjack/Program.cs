@@ -43,9 +43,10 @@ namespace BlackjackTest
                     string dealer = "";
                     string player = "";
                     string win = "";
+                    utilities n = new utilities();
                     while (dealDone != 1 || playDone != 1)
                     {
-                        utilities n = new utilities();
+                        
 
                         n.cardDraw(hit, ref totalNumDeal1, ref totalNumDeal2, ref totalNumPlay1, ref totalNumPlay2, ref aceCount, ref card, ref faceDown);
 
@@ -55,57 +56,37 @@ namespace BlackjackTest
                             {
                                 if (aceCount != 0)//If the dealer got an ace
                                 {
-                                    if (totalNumDeal2 > 21) //Checks to see if the max value is over 21
+                                        if (totalNumDeal2 > 21) //Checks to see if the max value is over 21
                                     {
-                                        if (totalNumDeal1 <= 16)//If the minimum number is less than or equal to 16 the dealer gets another card
+                                        if (totalNumDeal1 > 16)
                                         {
-                                        }
-                                        else //If over 16, the acecount and card resets, the hit variable is changed to 2 so the program switches to adding card values to the player variable
-                                        { // it sets the dealer to done and gives the dealer variable a basic sentence of their face down card and their point value
-                                            aceCount = 0;
-                                            hit = 2;
-                                            dealer = "The dealers face down card is " + faceDown + " for a total of " + totalNumDeal1 + " points.";
-                                            card = 1;
-                                            dealDone = 1;
+                                            n.resetForPlayer(ref aceCount, ref hit, ref dealer, ref card, ref dealDone, totalNumDeal1, faceDown);
                                         }
                                     }
                                     else
                                     {
-                                        if (totalNumDeal1 <= 16 && totalNumDeal2 <= 16)//If the minimum number is less than or equal to 16 and the max number less than or equal to 16
+                                        if (totalNumDeal1 > 16 && totalNumDeal2 > 16 || totalNumDeal2 < 22 && totalNumDeal2 > 16)//If the minimum number is less than or equal to 16 and the max number less than or equal to 16
                                         {
-                                        }
-                                        else //If over 16, the acecount and card resets, the hit variable is changed to 2 so the program switches to adding card values to the player variable
-                                        { // it sets the dealer to done and gives the dealer variable a basic sentence of their face down card and their point value
-                                            aceCount = 0;
-                                            dealer = "The dealers face down card is " + faceDown + " for a total of " + totalNumDeal2 + " points.";
-                                            hit = 2;
-                                            card = 1;
-                                            dealDone = 1;
+                                            n.resetForPlayer(ref aceCount, ref hit, ref dealer, ref card, ref dealDone, totalNumDeal2, faceDown);
                                         }
                                     }
                                 }
                                 else
                                 {
 
-                                    if (totalNumDeal1 <= 16 || totalNumDeal2 <= 16)//If the minimum number is less than or equal to 16 and the max number less than or equal to 16
+                                    if (totalNumDeal1 > 16 || totalNumDeal2 > 16)//If the minimum number is less than or equal to 16 and the max number less than or equal to 16
                                     {
-                                    }
-                                    else //If over 16, the acecount and card resets, the hit variable is changed to 2 so the program switches to adding card values to the player variable
-                                    { // it sets the dealer to done and gives the dealer variable a basic sentence of their face down card and their point value
-                                        dealer = "The dealers face down card is " + faceDown + " for a total of " + totalNumDeal2 + " points.";
-                                        hit = 2;
-                                        aceCount = 0;
-                                        card = 1;
-                                        dealDone = 1;
+                                        n.resetForPlayer(ref aceCount, ref hit, ref dealer, ref card, ref dealDone, totalNumDeal2, faceDown);
                                     }
                                 }
                             }
                             else
                             {
-                                if (totalNumPlay1 > 21) //Checks to see if the max value is over 21 and ends the game if it is
+                                if (totalNumPlay1 > 21) //Checks to see if the min value is over 21 and ends the game if it is
                                 {
                                     player = "Your card total is " + totalNumPlay1 + " points.";
-                                    gameOver = 0;
+                                    n.checkWin(totalNumPlay1, totalNumDeal1, ref win, ref gameOver);
+                                    n.results(dealer, player, totalNumDeal1, totalNumPlay1, win);
                                     break;
                                 }
                                 else
@@ -133,10 +114,12 @@ namespace BlackjackTest
                                                 if (totalNumDeal1 >= totalNumDeal2)// if the minimum dealer number is more than or equal to the max
                                                 {
                                                     n.checkWin(totalNumPlay1, totalNumDeal1, ref win, ref gameOver);
+                                                    n.results(dealer, player, totalNumDeal1, totalNumPlay1, win);
                                                 }
                                                 else
                                                 {
                                                     n.checkWin(totalNumPlay1, totalNumDeal2, ref win, ref gameOver);
+                                                    n.results(dealer, player, totalNumDeal2, totalNumPlay1, win);
                                                 }
                                             }
                                             else
@@ -144,10 +127,12 @@ namespace BlackjackTest
                                                 if (totalNumDeal1 >= totalNumDeal2)// if the minimum dealer number is more than or equal to the max
                                                 {
                                                     n.checkWin(totalNumPlay2, totalNumDeal1, ref win, ref gameOver);
+                                                    n.results(dealer, player, totalNumDeal1, totalNumPlay2, win);
                                                 }
                                                 else
                                                 {
                                                     n.checkWin(totalNumPlay2, totalNumDeal2, ref win, ref gameOver);
+                                                    n.results(dealer, player, totalNumDeal2, totalNumPlay2, win);
                                                 }
                                             }
                                         }
@@ -170,13 +155,15 @@ namespace BlackjackTest
                                             playDone = 1;//the player is set to finished
                                             hit = 0;
                                             player = "Your card total is " + totalNumPlay1 + " points.";
-                                            if (totalNumDeal1 >= totalNumDeal2)// if the minimum dealer number is more than or equal to the max
+                                            if (totalNumDeal1 >= totalNumDeal2 && totalNumDeal2 >= 22)// if the minimum dealer number is more than or equal to the max
                                             {
                                                 n.checkWin(totalNumPlay1, totalNumDeal1, ref win, ref gameOver);
+                                                n.results(dealer, player, totalNumDeal1, totalNumPlay1,  win);
                                             }
                                             else
                                             {
                                                 n.checkWin(totalNumPlay1, totalNumDeal2, ref win, ref gameOver);
+                                                n.results(dealer, player, totalNumDeal2, totalNumPlay1, win);
                                             }
 
 
@@ -189,19 +176,8 @@ namespace BlackjackTest
 
                     }
 
-                    if (totalNumPlay1 > 21)//If the players card count goes over 21 then they lose and go bust
-                    {
 
-                        win = "have went bust! You lose!";
-                    }
-                    else if (totalNumDeal1 > 21)//if the dealer goes over 21 then they lose and go bust
-                    {
-                        win = "win! The dealer went bust!";
-                    }
-                    Console.WriteLine(dealer);//prints message for the dealers total card count
-                    Console.WriteLine(player);//prints message for the players total card count
-                    Console.WriteLine("You " + win);//prints result of the game
-
+                    
                 }
             }
 
