@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Blackjack;
 using System;
 using System.ComponentModel;
 using System.Reflection.Metadata.Ecma335;
@@ -44,6 +45,9 @@ namespace BlackjackTest
                     string win = "";
                     while (dealDone != 1 || playDone != 1)
                     {
+                        utilities n = new utilities();
+
+                        n.cardDraw(hit, ref totalNumDeal1, ref totalNumDeal2, ref totalNumPlay1, ref totalNumPlay2, ref aceCount, ref card, ref faceDown);
 
                         if (card >= 3)//If there are 2 or more cards (cards starts at 1)
                         {
@@ -126,80 +130,24 @@ namespace BlackjackTest
                                             if (totalNumPlay2 >= 22)//if the max number is over 21 
                                             {
                                                 player = "Your card total is " + totalNumPlay1 + " points.";
-                                                if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)// if the minimum dealer number is more than or equal to the max
+                                                if (totalNumDeal1 >= totalNumDeal2)// if the minimum dealer number is more than or equal to the max
                                                 {
-                                                    if (totalNumPlay1 > totalNumDeal1)//if the player number1 is greater than the dealer number
-                                                    {
-                                                        win = "win!"; //player wins and gameover is set to 0
-                                                        gameOver = 0;
-                                                    }
-                                                    else if (totalNumPlay1 < totalNumDeal1)//if the player number1 is less than the dealer number
-                                                    {
-                                                        win = "lose!";//player loses and gameover is set to 0
-                                                        gameOver = 0;
-                                                    }
-                                                    else
-                                                    {
-                                                        win = "draw!";//player draws
-                                                        gameOver = 0;
-                                                    }
+                                                    n.checkWin(totalNumPlay1, totalNumDeal1, ref win, ref gameOver);
                                                 }
                                                 else
                                                 {
-                                                    if (totalNumPlay1 > totalNumDeal2)// if player number1 is greater than dealer max number
-                                                    {
-                                                        win = "win!";//player wins and gameover is set to 0
-                                                        gameOver = 0;
-                                                    }
-                                                    else if (totalNumPlay1 < totalNumDeal2)//if the player number1 is less than the dealer number
-                                                    {
-                                                        win = "lose!";//player loses and gameover is set to 0
-                                                        gameOver = 0;
-                                                    }
-                                                    else
-                                                    {
-                                                        win = "draw!";//player draws
-                                                        gameOver = 0;
-                                                    }
+                                                    n.checkWin(totalNumPlay1, totalNumDeal2, ref win, ref gameOver);
                                                 }
                                             }
                                             else
                                             {
-                                                if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)// if the minimum dealer number is more than or equal to the max
+                                                if (totalNumDeal1 >= totalNumDeal2)// if the minimum dealer number is more than or equal to the max
                                                 {
-                                                    if (totalNumPlay2 > totalNumDeal1)//if the player number2 is greater than the dealer number
-                                                    {
-                                                        win = "win!";//player wins and gameover is set to 0
-                                                        gameOver = 0;
-                                                    }
-                                                    else if (totalNumPlay2 < totalNumDeal1)//if the player number2 is less than the dealer number
-                                                    {
-                                                        win = "lose!";//player loses and gameover is set to 0
-                                                        gameOver = 0;
-                                                    }
-                                                    else
-                                                    {
-                                                        win = "draw!";//player draws
-                                                        gameOver = 0;
-                                                    }
+                                                    n.checkWin(totalNumPlay2, totalNumDeal1, ref win, ref gameOver);
                                                 }
                                                 else
                                                 {
-                                                    if (totalNumPlay2 > totalNumDeal2)//if the player number2 is greater than the max dealer number
-                                                    {
-                                                        win = "win!";//player wins and gameover is set to 0
-                                                        gameOver = 0;
-                                                    }
-                                                    else if (totalNumPlay2 < totalNumDeal2)//if the player number2 is less than the max dealer number
-                                                    {
-                                                        win = "lose!";//player loses and gameover is set to 0
-                                                        gameOver = 0;
-                                                    }
-                                                    else
-                                                    {
-                                                        win = "draw!";//player draws
-                                                        gameOver = 0;
-                                                    }
+                                                    n.checkWin(totalNumPlay2, totalNumDeal2, ref win, ref gameOver);
                                                 }
                                             }
                                         }
@@ -222,41 +170,13 @@ namespace BlackjackTest
                                             playDone = 1;//the player is set to finished
                                             hit = 0;
                                             player = "Your card total is " + totalNumPlay1 + " points.";
-                                            if (totalNumDeal1 > totalNumDeal2 || totalNumDeal1 == totalNumDeal2)// if the minimum dealer number is more than or equal to the max
+                                            if (totalNumDeal1 >= totalNumDeal2)// if the minimum dealer number is more than or equal to the max
                                             {
-                                                if (totalNumPlay1 > totalNumDeal1)//if the player number1 is greater than the dealer number
-                                                {
-                                                    win = "win!";//player wins and gameover is set to 0
-                                                    gameOver = 0;
-                                                }
-                                                else if (totalNumPlay1 < totalNumDeal1)//if the player number1 is less than the dealer number
-                                                {
-                                                    win = "lose!";//player loses and gameover is set to 0
-                                                    gameOver = 0;
-                                                }
-                                                else
-                                                {
-                                                    win = "draw!";//player draws
-                                                    gameOver = 0;
-                                                }
+                                                n.checkWin(totalNumPlay1, totalNumDeal1, ref win, ref gameOver);
                                             }
                                             else
                                             {
-                                                if (totalNumPlay1 > totalNumDeal2)//if the player number1 is greater than the max dealer number
-                                                {
-                                                    win = "win!";//player wins and gameover is set to 0
-                                                    gameOver = 0;
-                                                }
-                                                else if (totalNumPlay1 < totalNumDeal2)//if the player number1 is less than the dealer number
-                                                {
-                                                    win = "lose!";//player loses and gameover is set to 0
-                                                    gameOver = 0;
-                                                }
-                                                else
-                                                {
-                                                    win = "draw!";//player draws
-                                                    gameOver = 0;
-                                                }
+                                                n.checkWin(totalNumPlay1, totalNumDeal2, ref win, ref gameOver);
                                             }
 
 
